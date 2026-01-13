@@ -1,0 +1,2 @@
+class TestPing < ApplicationRecord
+end
