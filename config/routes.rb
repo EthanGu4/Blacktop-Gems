@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   namespace :api do
     get "players/search", to: "players#search"
   end
+
+  get "/debug/jokic", to: "debug#jokic"
 end
