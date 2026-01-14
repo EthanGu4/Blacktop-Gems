@@ -14,13 +14,15 @@ namespace :nba do
     active_ids = Set.new(rows.map { |r| r["id"] })
 
     upserts = rows.map do |p|
-      {
+    {
         nba_player_id: p["id"],
         first_name: p["first_name"],
         last_name: p["last_name"],
         full_name: p["full_name"],
         is_active: true,
-      }
+        team_id: p["team_id"],
+        team_abbreviation: p["team_abbreviation"]
+    }
     end
 
     ActiveRecord::Base.transaction do
