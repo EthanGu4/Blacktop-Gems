@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+In Procfile
+
+web: bin/rails server for local testing
+web: bundle exec puma -C config/puma.rb for deployment
