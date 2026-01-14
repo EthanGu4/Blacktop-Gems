@@ -9,5 +9,6 @@ class PlayersController < ApplicationController
 
   def show
     @player = ActiveNbaPlayer.find(params[:id])
+    @stats = @player.season_stats.find_by(season_id: "2025-26")
   end
 end
