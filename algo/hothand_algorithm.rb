@@ -14,7 +14,7 @@
 # Threes Made
 # Threes Attempted
 # Free Throws Made
-# Field Goals Attempted 
+# Field Goals Attempted
 
 # Will be going off of ESPN's 8 statistical categories:
 # FG%
