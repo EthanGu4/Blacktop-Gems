@@ -28,3 +28,5 @@ In Procfile
 
 web: bin/rails server for local testing
 web: bundle exec puma -C config/puma.rb for deployment
+
+Also have to edit config/database.yml to switch between local host (testing) and deployment (render)

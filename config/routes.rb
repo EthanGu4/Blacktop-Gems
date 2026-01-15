@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
-  resources :players, only: [:index, :show]
-  get "/gems", to: "pages#gems"
-
+  resources :players, only: %i[index show]
+  resources :rankings, only: %i[index]
 end

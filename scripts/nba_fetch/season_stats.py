@@ -19,7 +19,6 @@ def row_matches_season(row, wanted: str) -> bool:
 
 def main():
     if len(sys.argv) != 4:
-        print("Usage: season_stats_for_players.py SEASON_ID player_ids.json output.json", file=sys.stderr)
         sys.exit(1)
 
     season_id = normalize_season_id(sys.argv[1])
@@ -34,10 +33,9 @@ def main():
     for i, pid in enumerate(player_ids, start=1):
         try:
             career = playercareerstats.PlayerCareerStats(player_id=str(pid))
-            season_totals = career.get_data_frames()[0]  # SeasonTotalsRegularSeason
+            season_totals = career.get_data_frames()[0]  
             records = season_totals.to_dict(orient="records")
 
-            # Find the row for the requested season
             match = None
             for r in records:
                 if row_matches_season(r, season_id):
@@ -49,7 +47,7 @@ def main():
                     "nba_player_id": int(pid),
                     "season_id": season_id,
                     "games_played": match.get("GP"),
-                    "minutes_per_game": match.get("MIN"),
+                    "total_minutes": match.get("MIN"),
                     "pts": match.get("PTS"),
                     "reb": match.get("REB"),
                     "ast": match.get("AST"),
@@ -61,7 +59,6 @@ def main():
                     "ft_pct": match.get("FT_PCT"),
                 })
 
-            # gentle pacing (nba stats endpoints can rate-limit)
             time.sleep(0.4)
         except Exception as e:
             print(f"Error for player {pid}: {e}", file=sys.stderr)

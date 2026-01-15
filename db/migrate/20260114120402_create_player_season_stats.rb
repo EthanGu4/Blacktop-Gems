@@ -1,5 +1,6 @@
 class CreatePlayerSeasonStats < ActiveRecord::Migration[7.1]
   def change
+    return if table_exists?(:player_season_stats)
     create_table :player_season_stats do |t|
       t.integer :nba_player_id, null: false
       t.string :season_id

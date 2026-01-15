@@ -2,101 +2,116 @@
 <% abbr = player.team_abbreviation.to_s.upcase %>
 <% logo = team_logo_path(abbr) %>
 
-<div class="overflow-hidden rounded-3xl border border-slate-900/10 bg-white/65 shadow-sm backdrop-blur">
-  <!-- Top bar / header -->
-  <div class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex items-center gap-4">
-      <% if logo.present? %>
-        <%= image_tag logo,
-          alt: "#{abbr} logo",
-          class: "h-16 w-16 flex-none rounded-2xl border border-slate-900/10 bg-slate-900/5 p-2 object-contain"
-        %>
-      <% else %>
-        <div class="flex h-16 w-16 flex-none items-center justify-center rounded-2xl border border-slate-900/10 bg-slate-900/5 text-sm font-black tracking-wide text-slate-800">
-          <%= abbr.presence || "N/A" %>
-        </div>
-      <% end %>
+<div class="relative isolate overflow-hidden rounded-[28px] border border-slate-900/15 bg-[#151B2E] shadow-[0_22px_80px_rgba(0,0,0,0.35)]">
+  <div class="pointer-events-none absolute -inset-16 opacity-40 blur-3xl mix-blend-screen
+    bg-[conic-gradient(from_200deg_at_50%_50%,#F59E0B_0deg,#FB923C_70deg,#FDE68A_140deg,#EA580C_210deg,#FDBA74_290deg,#F59E0B_360deg)]"></div>
 
-      <div class="min-w-0">
-        <div class="text-3xl font-extrabold tracking-tight text-slate-900">
-          <%= name %>
-        </div>
+  <div class="pointer-events-none absolute -inset-16 opacity-18 blur-3xl mix-blend-soft-light
+    bg-[conic-gradient(from_20deg_at_50%_50%,#ffffff_0deg,#000000_60deg,#ffffff_120deg,#000000_180deg,#ffffff_240deg,#000000_300deg,#ffffff_360deg)]"></div>
 
-        <div class="mt-2 flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center rounded-full border border-slate-900/10 bg-slate-900/5 px-3 py-1 text-xs font-extrabold tracking-wide text-slate-800">
-            <%= abbr.presence || "No team" %>
-          </span>
-
-          <%# Optional: if you pass a team name like @team[:name] or @team.name %>
-          <% if defined?(team) && team.present? %>
-            <span class="text-sm font-semibold text-slate-700">
-              <%= team.respond_to?(:name) ? team.name : (team[:name] rescue nil) %>
-            </span>
+  <div class="relative border border-white/12 bg-white/8 backdrop-blur-md">
+    <div class="grid gap-6 p-6 lg:grid-cols-[360px_1fr]">
+      <div class="rounded-3xl border border-white/12 bg-white/10 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
+        <div class="flex items-start gap-4">
+          <% if logo.present? %>
+            <%= image_tag logo,
+              alt: "#{abbr} logo",
+              class: "h-16 w-16 flex-none rounded-2xl border border-white/15 bg-white/85 p-2 object-contain shadow-sm"
+            %>
+          <% else %>
+            <div class="flex h-16 w-16 flex-none items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-sm font-black tracking-wide text-white/90 shadow-sm">
+              <%= abbr.presence || "N/A" %>
+            </div>
           <% end %>
+
+          <div class="min-w-0">
+            <div class="truncate text-3xl font-extrabold tracking-tight text-white">
+              <%= name %>
+            </div>
+
+            <div class="mt-2 flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center rounded-full border border-white/18 bg-white/10 px-3 py-1 text-xs font-black tracking-wide text-white/90">
+                <%= abbr.presence || "No team" %>
+              </span>
+
+              <% if defined?(team) && team.present? %>
+                <span class="truncate text-sm font-semibold text-white/70">
+                  <%= team.respond_to?(:name) ? team.name : (team[:name] rescue nil) %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 flex items-center justify-between rounded-2xl border border-white/14 bg-white/10 px-4 py-3">
+          <div class="text-xs font-black tracking-wider text-white/60">SEASON</div>
+          <div class="text-sm font-extrabold text-white">2025–26</div>
         </div>
       </div>
-    </div>
 
-    <!-- Right side "season tag" -->
-    <div class="flex items-center gap-2">
-      <span class="inline-flex items-center rounded-2xl border border-slate-900/10 bg-white/70 px-4 py-2 text-sm font-extrabold text-slate-900">
-        2025–26
-      </span>
-    </div>
-  </div>
-
-  <!-- Divider -->
-  <div class="h-px bg-slate-900/10"></div>
-
-  <!-- Stats section -->
-  <div class="p-6">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <div class="text-lg font-extrabold tracking-tight text-slate-900">Season Stats</div>
-        <div class="mt-1 text-sm font-semibold text-slate-700">
-          Per game • Regular season
+      <div class="rounded-3xl border border-white/12 bg-white/10 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <div class="text-lg font-extrabold tracking-tight text-white">Season Stats</div>
+            <div class="mt-1 text-sm font-semibold text-white/70">Regular season</div>
+          </div>
         </div>
+
+        <% if stats.present? %>
+
+        <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div class="lg:col-span-2">
+            <%= render "stat_tile",
+              label: "PTS",
+              value: stats&.games_played.to_i > 0 ? (stats.pts.to_f / stats.games_played).round(1) : "—"
+            %>
+          </div>
+          <div class="lg:col-span-2">
+            <%= render "stat_tile",
+              label: "REB",
+              value: stats&.games_played.to_i > 0 ? (stats.reb.to_f / stats.games_played).round(1) : "—"
+            %>
+          </div>
+          <div class="lg:col-span-2">
+            <%= render "stat_tile",
+              label: "AST",
+              value: stats&.games_played.to_i > 0 ? (stats.ast.to_f / stats.games_played).round(1) : "—"
+            %>
+          </div>
+
+          <div class="col-span-full grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <%= render "stat_tile",
+              label: "STL",
+              value: stats&.games_played.to_i > 0 ? (stats.stl.to_f / stats.games_played).round(1) : "—"
+            %>
+            <%= render "stat_tile",
+              label: "BLK",
+              value: stats&.games_played.to_i > 0 ? (stats.blk.to_f / stats.games_played).round(1) : "—"
+            %>
+            <%= render "stat_tile",
+              label: "TOV",
+              value: stats&.games_played.to_i > 0 ? (stats.tov.to_f / stats.games_played).round(1) : "—"
+            %>
+            <%= render "stat_tile",
+              label: "GP",
+              value: stats&.games_played || "—"
+            %>
+          </div>
+
+          <div class="col-span-full grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <%= render "stat_tile", label: "FG%", value: stats&.fg_pct || "—" %>
+            <%= render "stat_tile", label: "3P%", value: stats&.fg3_pct || "—" %>
+            <%= render "stat_tile", label: "FT%", value: stats&.ft_pct || "—" %>
+            <%= render "stat_tile", label: "MIN", value: stats&.total_minutes || "—" %>
+          </div>
+        </div>
+
+        <% else %>
+          <div class="mt-5 rounded-2xl border border-white/14 bg-white/10 p-4 text-sm font-semibold text-white/70">
+            Stats not loaded yet — hook your 2025–26 endpoint into <span class="font-extrabold text-white">@stats</span> and this box will fill automatically.
+          </div>
+        <% end %>
       </div>
-      <%# Optional slot for a “Hot” / “Gem” badge later %>
-      <%# <span class="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-black">🔥 HOT</span> %>
     </div>
-
-    <% if stats.present? %>
-      <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <%= render "stat_tile", 
-          label: "PTS", 
-          value: stats&.games_played.to_i > 0 ? (stats.pts.to_f / stats.games_played).round(1) : "—"
-        %>
-        <%= render "stat_tile", 
-          label: "REB", 
-          value: stats&.games_played.to_i > 0 ? (stats.reb.to_f / stats.games_played).round(1) : "—"
-        %>
-        <%= render "stat_tile", 
-          label: "AST", 
-          value: stats&.games_played.to_i > 0 ? (stats.ast.to_f / stats.games_played).round(1) : "—"
-        %>
-        <%= render "stat_tile", 
-          label: "STL", 
-          value: stats&.games_played.to_i > 0 ? (stats.stl.to_f / stats.games_played).round(1) : "—"
-        %>
-        <%= render "stat_tile", 
-          label: "BLK", 
-          value: stats&.games_played.to_i > 0 ? (stats.blk.to_f / stats.games_played).round(1) : "—"
-        %>
-        <%= render "stat_tile", 
-          label: "TOV", 
-          value: stats&.games_played.to_i > 0 ? (stats.tov.to_f / stats.games_played).round(1) : "—"
-        %>
-
-        <%= render "stat_tile", label: "FG%", value: stats&.fg_pct || "—" %>
-        <%= render "stat_tile", label: "3P%", value: stats&.fg3_pct || "—" %>
-        <%= render "stat_tile", label: "FT%", value: stats&.ft_pct || "—" %>
-        <%= render "stat_tile", label: "MIN", value: stats&.total_minutes || "—" %>
-      </div>
-    <% else %>
-      <div class="mt-5 rounded-2xl border border-slate-900/10 bg-white/70 p-4 text-sm font-semibold text-slate-700">
-        Stats not loaded yet — hook your 2025–26 endpoint into <span class="font-extrabold text-slate-900">@stats</span> and this box will fill automatically.
-      </div>
-    <% end %>
   </div>
 </div>

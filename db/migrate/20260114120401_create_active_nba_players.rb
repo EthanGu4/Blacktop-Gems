@@ -1,6 +1,7 @@
 # 20260115010101_create_active_nba_players.rb
 class CreateActiveNbaPlayers < ActiveRecord::Migration[7.1]
   def change
+    return if table_exists?(:active_nba_players)
     create_table :active_nba_players do |t|
       t.integer :nba_player_id, null: false
       t.string  :first_name

@@ -25,7 +25,7 @@ namespace :nba do
         nba_player_id: r["nba_player_id"],
         season_id: r["season_id"],
         games_played: r["games_played"],
-        total_minutes: r["minutes_per_game"],
+        total_minutes: r["total_minutes"],
         pts: r["pts"],
         reb: r["reb"],
         ast: r["ast"],

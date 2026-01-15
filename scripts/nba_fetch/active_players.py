@@ -33,7 +33,7 @@ def main():
             "team_abbreviation": team_abbr
         })
 
-        time.sleep(0.6)  # avoid NBA rate limiting
+        time.sleep(0.6) 
 
     print(json.dumps(result))
 

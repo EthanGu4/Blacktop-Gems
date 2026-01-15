@@ -36,7 +36,6 @@ def main():
     date_to = datetime.utcnow().date()
     date_from = date_to - timedelta(days=days_back)
 
-    # One league-wide request
     resp = playergamelogs.PlayerGameLogs(
         season_nullable=season_id,
         season_type_nullable="Regular Season",

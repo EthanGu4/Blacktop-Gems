@@ -1,12 +1,15 @@
-<div class="mx-auto max-w-6xl px-6 py-10">
-  <%= link_to "← Back", players_path,
-    class: "inline-flex items-center rounded-2xl border border-slate-900/10 bg-white/60 px-4 py-2 font-extrabold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-md"
-  %>
-  <div class="mt-6">
-    <%= render "player_profile_card",
-      player: @player,
-      stats: @stats
+<div class="w-full bg-[#F7F2E8]">
+  <div class="mx-auto max-w-6xl px-6 py-10">
+    <%= link_to "← Back",
+      request.referer || players_path,
+      class: "inline-flex items-center rounded-2xl border border-slate-900/10 bg-white/80 px-4 py-2 font-extrabold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
     %>
+
+    <div class="mt-6">
+      <%= render "player_profile_card",
+        player: @player,
+        stats: @stats
+      %>
+    </div>
   </div>
 </div>
-
