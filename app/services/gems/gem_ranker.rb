@@ -55,7 +55,7 @@ module Gems
         limit
       ]
 
-      ActiveNbaPlayer.find_by_sql([sql, *binds])
+      ActiveNbaPlayer.find_by_sql([ sql, *binds ])
     end
 
     def self.hottest(limit: 16, season_id: SEASON_ID, weights: {}, recent_games: 5)
@@ -146,7 +146,7 @@ module Gems
         limit
       ]
 
-      ActiveNbaPlayer.find_by_sql([sql, *binds])
+      ActiveNbaPlayer.find_by_sql([ sql, *binds ])
     end
 
     def self.normalize_weights(weights)

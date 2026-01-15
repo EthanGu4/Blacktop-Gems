@@ -22,7 +22,7 @@ class CreatePlayerGameStats < ActiveRecord::Migration[7.1]
       t.integer :plus_minus
     end
 
-    add_index :player_game_stats, [:nba_player_id, :game_id], unique: true
+    add_index :player_game_stats, [ :nba_player_id, :game_id ], unique: true
     add_index :player_game_stats, :game_date
   end
 end

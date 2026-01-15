@@ -17,6 +17,6 @@ class CreatePlayerSeasonStats < ActiveRecord::Migration[7.1]
       t.float :ft_pct
     end
 
-    add_index :player_season_stats, [:nba_player_id, :season_id], unique: true
+    add_index :player_season_stats, [ :nba_player_id, :season_id ], unique: true
   end
 end

@@ -9,7 +9,7 @@ class CreateActiveNbaPlayers < ActiveRecord::Migration[7.1]
       t.string  :full_name
       t.boolean  :is_active
       t.integer  :team_id
-      t.string  :team_abbreviation
+      t.string :team_abbreviation
     end
 
     add_index :active_nba_players, :nba_player_id, unique: true

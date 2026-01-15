@@ -3,7 +3,7 @@ namespace :balldontlie do
   desc "One-time sync: attach balldontlie_player_id to active_players"
   task sync_active_player_ids: :environment do
     whitelist = ActivePlayer.all.index_by do |p|
-      [p.first_name.strip, p.last_name.strip, p.team_abbr.strip]
+      [ p.first_name.strip, p.last_name.strip, p.team_abbr.strip ]
     end
 
     puts "Loaded #{whitelist.size} local active players"

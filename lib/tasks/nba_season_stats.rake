@@ -2,8 +2,8 @@ require "json"
 
 namespace :nba do
   desc "Sync player season stats for a season_id (e.g. 2024-25) into player_season_stats"
-  task :sync_season_stats, [:season_id] => :environment do |_, args|
-    season_id = (args[:season_id] || Date.current.year.to_s).to_s 
+  task :sync_season_stats, [ :season_id ] => :environment do |_, args|
+    season_id = (args[:season_id] || Date.current.year.to_s).to_s
     season_id = season_id.strip
     raise "Provide season_id like 2024-25: rails nba:sync_season_stats[2024-25]" if season_id.empty?
 
@@ -15,7 +15,7 @@ namespace :nba do
     File.write(ids_path, JSON.dump(player_ids))
 
     py = Rails.root.join("scripts", "nba_fetch", "season_stats.py")
-    cmd = ["python", py.to_s, season_id, ids_path.to_s, out_path.to_s]
+    cmd = [ "python", py.to_s, season_id, ids_path.to_s, out_path.to_s ]
     system(*cmd) or raise "Python fetch failed"
 
     rows = JSON.parse(File.read(out_path))

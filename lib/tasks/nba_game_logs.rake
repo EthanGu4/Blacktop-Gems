@@ -2,7 +2,7 @@ require "json"
 
 namespace :nba do
   desc "Fetch + upsert last 10 games for all active players into player_game_stats"
-  task :sync_last10_games, [:season_id, :days_back] => :environment do |_, args|
+  task :sync_last10_games, [ :season_id, :days_back ] => :environment do |_, args|
     season_id = (args[:season_id] || "2025-26").to_s.strip
     days_back = (args[:days_back] || "50").to_s.strip.to_i
 
@@ -14,7 +14,7 @@ namespace :nba do
     File.write(ids_path, JSON.dump(active_ids))
 
     py = Rails.root.join("scripts", "nba_fetch", "last_ten_games.py")
-    cmd = ["python", py.to_s, season_id, days_back.to_s, ids_path.to_s, out_path.to_s]
+    cmd = [ "python", py.to_s, season_id, days_back.to_s, ids_path.to_s, out_path.to_s ]
     puts "Running: #{cmd.join(' ')}"
     system(*cmd) or raise "Python fetch failed"
 
@@ -43,7 +43,7 @@ namespace :nba do
         ft_made: r["ft_made"],
         ft_attempted: r["ft_attempted"],
 
-        plus_minus: r["plus_minus"],
+        plus_minus: r["plus_minus"]
       }
     end
 
